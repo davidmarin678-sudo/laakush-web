@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a LaaKush</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- VARIABLES DE MARCA --- */
+        :root {
+            --brand-green: #008f39;
+            --brand-dark-green: #1b3a26;   
+            --text-dark: #333;
+            --text-gray: #666;
+            --bg-light: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* 1. BARRA DE NAVEGACIÓN */
+        header {
+            background-color: white;
+            padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #333; display: flex; align-items: center; gap: 8px; }
+        .logo i { color: var(--brand-green); font-size: 1.6rem; }
+        
+        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        nav a { text-decoration: none; color: #555; font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+        nav a:hover { color: var(--brand-green); }
+
+        /* 2. SECCIÓN DE BIENVENIDA (HERO) */
+        .hero-section {
+            background-color: var(--brand-dark-green);
+            background-image: linear-gradient(rgba(27, 58, 38, 0.7), rgba(27, 58, 38, 0.7)), url('https://images.unsplash.com/photo-1603909223429-69bb7101f420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .hero-icon { font-size: 3rem; margin-bottom: 20px; color: #e8f5e9; }
+        .hero-section h1 { font-size: 3rem; margin: 0 0 15px 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero-section p { font-size: 1.1rem; max-width: 700px; margin: 0 auto 30px; color: #e8f5e9; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+
+        .cta-btn {
+            background-color: var(--brand-green);
+            color: white; padding: 15px 35px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .cta-btn:hover { background-color: #006b2b; transform: scale(1.05); }
+
+        /* 3. SECCIÓN DE TARJETAS */
+        .features-section { padding: 60px 5%; text-align: center; }
+        .section-title { font-size: 1.8rem; color: #222; margin-bottom: 10px; }
+        .section-subtitle { color: var(--text-gray); margin-bottom: 50px; }
+
+        .cards-container {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;
+            max-width: 1200px; margin: 0 auto;
+        }
+
+        .card {
+            background: white; border-radius: 20px; padding: 40px 25px;
+            flex: 1; min-width: 240px; max-width: 280px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+            margin-bottom: 10px;
+        }
+        .card:hover { transform: translateY(-5px); }
+        
+        .card.clickable { cursor: pointer; border: 2px solid transparent; }
+        .card.clickable:hover { border-color: #e8f5e9; box-shadow: 0 10px 25px rgba(88, 167, 83, 0.15); }
+
+        .icon-circle {
+            width: 70px; height: 70px; background-color: #ecf7ed;
+            border-radius: 50%; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: var(--brand-green);
+        }
+        .card h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: #222; }
+        .card p { color: var(--text-gray); font-size: 0.9rem; margin: 0; line-height: 1.5; }
+
+        /* 4. PIE DE PÁGINA */
+        footer {
+            background-color: var(--brand-dark-green);
+            background-image: linear-gradient(rgba(27, 58, 38, 0.85), rgba(27, 58, 38, 0.85)), url('https://images.unsplash.com/photo-1603909223429-69bb7101f420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+            padding: 60px 20px 30px;
+            margin-top: 50px;
+        }
+
+        .footer-content { max-width: 900px; margin: 0 auto; }
+        .footer-content h2 { font-size: 1.5rem; margin-bottom: 10px; font-weight: 500; }
+        .footer-content p.intro-text { font-size: 0.95rem; margin-bottom: 40px; opacity: 0.9; }
+
+        .contact-grid {
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;
+        }
+
+        .contact-card {
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 25px 20px;
+            width: 220px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s, background-color 0.3s;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .contact-card:hover { 
+            transform: translateY(-5px); 
+            background-color: rgba(255, 255, 255, 0.25); 
+        }
+
+        .contact-icon {
+            font-size: 24px; margin-bottom: 15px; border: 1px solid white; border-radius: 50%;
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .contact-title { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+        .contact-subtitle { font-size: 0.85rem; opacity: 0.9; }
+
+        .hours-badge {
+            background-color: rgba(255, 255, 255, 0.15); display: inline-block;
+            padding: 10px 25px; border-radius: 5px; font-size: 0.9rem; margin-bottom: 40px;
+            backdrop-filter: blur(3px);
+        }
+        .hours-badge i { margin-right: 8px; }
+
+        .disclaimer {
+            font-size: 0.75rem; opacity: 0.7; max-width: 600px; margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
+        }
+
+        /* --- ESTILOS DE LOS MODALES --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px);
+            z-index: 2000; justify-content: center; align-items: center;
+        }
+
+        .modal-container {
+            background: white; width: 90%; max-width: 800px; max-height: 85vh;
+            border-radius: 15px; display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(15px);} to {opacity: 1; transform: translateY(0);} }
+
+        .modal-header { padding: 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; background: white; z-index: 10; }
+        .modal-header h2 { margin: 0; color: #333; font-size: 1.4rem; display: flex; gap: 10px; align-items: center; }
+        .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa; }
+        
+        /* Pestañas */
+        .tabs-container { display: flex; overflow-x: auto; background: white; border-bottom: 1px solid #f0f0f0; flex-shrink: 0; }
+        .tab-btn { padding: 15px 25px; border: none; background: none; cursor: pointer; font-weight: 600; color: #888; white-space: nowrap; border-bottom: 3px solid transparent; transition: color 0.2s; }
+        .tab-btn:hover { color: var(--brand-green); background-color: #fafafa; }
+        .tab-btn.active { color: var(--brand-green); border-bottom: 3px solid var(--brand-green); }
+
+        /* Contenido Grid */
+        .menu-content { padding: 30px; overflow-y: auto; background: #fcfcfc; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .menu-item { background: white; padding: 15px; border-radius: 10px; border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .item-price { background: #ecf7ed; color: #3d7a3a; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+
+        /* Alerta de postres */
+        .alert-box {
+            background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;
+            padding: 15px; margin-bottom: 20px; border-radius: 8px; text-align: center;
+            font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-cannabis"></i> LaaKush
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-icon"><i class="fas fa-leaf"></i></div>
+        <h1>Bienvenido a LaaKush</h1>
+        <p>Tu santuario de confianza para productos cannábicos de élite. Explora la selección cuidadosamente curada para los gustos más exigentes.</p>
+        <a href="#catalogo" class="cta-btn">Ver Catálogo <i class="fas fa-eye"></i></a>
+    </section>
+
+    <section class="features-section" id="catalogo">
+        <h2 class="section-title">¿Qué te Ofrecemos?</h2>
+        <p class="section-subtitle">Descubre nuestra selección premium diseñada para ti.</p>
+
+        <div class="cards-container">
+            
+            <div class="card clickable" onclick="abrirModal()">
+                <div class="icon-circle"><i class="fas fa-cannabis"></i></div>
+                <h3>Calidad</h3>
+                <p>Flores seleccionadas.</p>
+            </div>
+            
+            <div class="card clickable" onclick="abrirModalCurados()">
+                <div class="icon-circle"><i class="fas fa-flask"></i></div>
+                <h3>Curados</h3>
+                <p>Extractos y aceites.</p>
+            </div>
+            
+            <div class="card clickable" onclick="abrirModalPapeles()">
+                <div class="icon-circle"><i class="fas fa-scroll"></i></div>
+                <h3>Papeles</h3>
+                <p>Pre-rolls listos.</p>
+            </div>
+
+            <div class="card clickable" onclick="abrirModalComestibles()">
+                <div class="icon-circle"><i class="fas fa-cookie-bite"></i></div>
+                <h3>Comestibles</h3>
+                <p>Postres espaciales.</p>
+            </div>
+
+            <div class="card clickable" onclick="abrirModalParaEnrolar()">
+                <div class="icon-circle"><i class="fas fa-fire"></i></div>
+                <h3>Para Enrolar</h3>
+                <p>Grinders, pipas y más.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h2>Contacto para Información de Precios</h2>
+            <p class="intro-text">¿Tienes preguntas sobre nuestros productos o precios? Contáctanos y con gusto te atenderemos</p>
+            
+            <div class="contact-grid">
+                <a href="tel:+525617555825" class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-title">Teléfono</div>
+                    <div class="contact-subtitle">+52 56 1755 5825</div>
+                </a>
+
+                <a href="https://wa.me/525617555825" target="_blank" class="contact-card">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-title">WhatsApp</div>
+                    <div class="contact-subtitle">Enviar mensaje</div>
+                </a>
+
+                <a href="mailto:info@laakush.com" class="contact-card">
+                    <div class="contact-icon"><i class="far fa-envelope"></i></div>
+                    <div class="contact-title">Email</div>
+                    <div class="contact-subtitle">info@laakush.com</div>
+                </a>
+            </div>
+
+            <div class="hours-badge">
+                <i class="far fa-clock"></i> Horario de atención: Lunes a Sábado 10:00 AM - 8:00 PM
+            </div>
+
+            <p class="disclaimer">
+                * Los precios varían según el producto y la cantidad. Contáctanos para obtener una cotización personalizada.
+            </p>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modalMenu">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>🌿 Menú de Flores</h2>
+                <button class="close-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="tabs-container" id="tabsContainer"></div>
+            <div class="menu-content">
+                <div class="menu-grid" id="menuGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCurados">
+        <div class="modal-container"> 
+            <div class="modal-header">
+                <h2>⚗️ Curados y Extractos</h2>
+                <button class="close-btn" onclick="cerrarModalCurados()">&times;</button>
+            </div>
+            <div class="menu-content">
+                <div class="menu-grid" id="gridCurados"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalPapeles">
+        <div class="modal-container"> 
+            <div class="modal-header">
+                <h2>📜 Pre-Rolls (Papeles)</h2>
+                <button class="close-btn" onclick="cerrarModalPapeles()">&times;</button>
+            </div>
+            <div class="menu-content">
+                <div class="menu-grid" id="gridPapeles"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalComestibles">
+        <div class="modal-container"> 
+            <div class="modal-header">
+                <h2>🍪 Comestibles</h2>
+                <button class="close-btn" onclick="cerrarModalComestibles()">&times;</button>
+            </div>
+            <div class="menu-content">
+                <div class="alert-box">
+                    <i class="fas fa-info-circle"></i> 
+                    Todos los postres son bajo pedido y con anticipación del 50%.
+                </div>
+                <div class="menu-grid" id="gridComestibles"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalParaEnrolar">
+        <div class="modal-container"> 
+            <div class="modal-header">
+                <h2>🔥 Para Enrolar y Accesorios</h2>
+                <button class="close-btn" onclick="cerrarModalParaEnrolar()">&times;</button>
+            </div>
+            <div class="menu-content">
+                <div class="menu-grid" id="gridParaEnrolar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === DATOS DE LOS MENÚS ===
+
+        // 1. CALIDAD
+        const menuData = {
+            "Comercial": [{ nombre: "Dulce miel", precio: "$50" }],
+            "Calidad media": [
+                { nombre: "Peyote Bombon", precio: "$100" },
+                { nombre: "Strawberry kush", precio: "$100" },
+                { nombre: "Chocolate Cookie", precio: "$100" },
+                { nombre: "Dicel Haze", precio: "$100" },
+                { nombre: "Green House", precio: "$200" }
+            ],
+            "Grameras": [
+                { nombre: "Lemon cherry", precio: "$80" },
+                { nombre: "Gorilla", precio: "$80" },
+                { nombre: "Gelato", precio: "$80" },
+                { nombre: "Kukis", precio: "$90" },
+                { nombre: "Scout", precio: "$90" },
+                { nombre: "Fz", precio: "$100" },
+                { nombre: "Arizona", precio: "$110" },
+                { nombre: "Orange Punch", precio: "$110" },
+                { nombre: "Piña Expres", precio: "$110" },
+                { nombre: "Posion", precio: "$110" },
+                { nombre: "Gelato 33", precio: "$120" },
+                { nombre: "Cherry", precio: "$120" },
+                { nombre: "Amnesia", precio: "$130" },
+                { nombre: "Bubble Gum (Chicle)", precio: "$130" },
+                { nombre: "Mimosa", precio: "$140" },
+                { nombre: "Blue Dream", precio: "$140" },
+                { nombre: "Ak-47", precio: "$170" }
+            ],
+            "Exóticas": [ 
+                { nombre: "Oreos", precio: "$170/g" },
+                { nombre: "Black Runz", precio: "$180/g" },
+                { nombre: "Power Plant", precio: "$200/g" }
+            ]
+        };
+
+        // 2. CURADOS
+        const curadosData = [
+            { nombre: "Wax jeringa 1ml", precio: "$500" },
+            { nombre: "Evaporador (Nacional)", precio: "$800" },
+            { nombre: "Evaporador (Var. marcas + 1g)", precio: "$900" },
+            { nombre: "Cartucho", precio: "$600" },
+            { nombre: "Ácidos (150 micras)", precio: "$150" },
+            { nombre: "Geles (200 micras)", precio: "$230" }
+        ];
+
+        // 3. PAPELES (PRE-ROLLS)
+        const papelesData = [
+            { nombre: "Baby Jeeter (Pack x5)", precio: "$700" },
+            { nombre: "Pre roll bby premium", precio: "$100" },
+            { nombre: "Pre roll premium", precio: "$150" },
+            { nombre: "Pre roll XL", precio: "$200" }
+        ];
+
+        // 4. COMESTIBLES (POSTRES)
+        const comestiblesData = [
+            { nombre: "Brownies Mágicos", precio: "Cotizar" },
+            { nombre: "Chocolates THC", precio: "Cotizar" },
+            { nombre: "Galletas", precio: "Cotizar" },
+            { nombre: "Gomitas", precio: "Cotizar" },
+            { nombre: "Pasteles", precio: "Cotizar" }
+        ];
+
+        // 5. PARA ENROLAR (ACCESORIOS)
+        const paraEnrolarData = [
+            { nombre: "Grinder Metálico", precio: "Varía" },
+            { nombre: "Pipas de Vidrio", precio: "Varía" },
+            { nombre: "Filtros de Vidrio", precio: "Varía" },
+            { nombre: "Filtros 3D (Lavables)", precio: "Varía" },
+            { nombre: "Papeles para forjar", precio: "Varía" },
+            { nombre: "Blunts", precio: "Varía" }
+        ];
+
+        // === FUNCIONES JS PARA ABRIR/CERRAR MODALES ===
+
+        // 1. Calidad
+        let categoriaActiva = "Comercial";
+        const modal = document.getElementById('modalMenu');
+        const tabsContainer = document.getElementById('tabsContainer');
+        const menuGrid = document.getElementById('menuGrid');
+
+        function abrirModal() {
+            modal.style.display = 'flex';
+            renderizarPestañas();
+            renderizarMenu();
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarModal() { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+
+        function renderizarPestañas() {
+            tabsContainer.innerHTML = '';
+            Object.keys(menuData).forEach(cat => {
+                const btn = document.createElement('button');
+                btn.innerText = cat;
+                btn.className = `tab-btn ${cat === categoriaActiva ? 'active' : ''}`;
+                btn.onclick = () => { categoriaActiva = cat; renderizarPestañas(); renderizarMenu(); };
+                tabsContainer.appendChild(btn);
+            });
+        }
+        function renderizarMenu() {
+            menuGrid.innerHTML = '';
+            menuData[categoriaActiva].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `<span style="font-weight:600; color:#333;">${item.nombre}</span><span class="item-price">${item.precio}</span>`;
+                menuGrid.appendChild(div);
+            });
+        }
+
+        // Función Genérica para renderizar listas simples
+        function abrirModalSimple(idModal, idGrid, data) {
+            const m = document.getElementById(idModal);
+            const g = document.getElementById(idGrid);
+            m.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            g.innerHTML = '';
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `<span style="font-weight:600; color:#333;">${item.nombre}</span><span class="item-price">${item.precio}</span>`;
+                g.appendChild(div);
+            });
+        }
+
+        function cerrarModalSimple(idModal) {
+            document.getElementById(idModal).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 2. Curados
+        function abrirModalCurados() { abrirModalSimple('modalCurados', 'gridCurados', curadosData); }
+        function cerrarModalCurados() { cerrarModalSimple('modalCurados'); }
+
+        // 3. Papeles
+        function abrirModalPapeles() { abrirModalSimple('modalPapeles', 'gridPapeles', papelesData); }
+        function cerrarModalPapeles() { cerrarModalSimple('modalPapeles'); }
+
+        // 4. Comestibles
+        function abrirModalComestibles() { abrirModalSimple('modalComestibles', 'gridComestibles', comestiblesData); }
+        function cerrarModalComestibles() { cerrarModalSimple('modalComestibles'); }
+
+        // 5. Para Enrolar
+        function abrirModalParaEnrolar() { abrirModalSimple('modalParaEnrolar', 'gridParaEnrolar', paraEnrolarData); }
+        function cerrarModalParaEnrolar() { cerrarModalSimple('modalParaEnrolar'); }
+
+        // CERRAR AL DAR CLICK FUERA (GLOBAL)
+        window.onclick = function(e) {
+            if (e.target.className === 'modal-overlay') {
+                e.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
